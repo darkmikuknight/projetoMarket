@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using projetoMarket.Data;
 using projetoMarket.DTO;
@@ -28,6 +29,36 @@ namespace projetoMarket.Controllers
             }
             else{
                 return View("../Gestao/NovaCategoria");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Atualizar(CategoriaDTO categoriaTemporaria){
+
+            if(ModelState.IsValid){
+                Categoria categoria = database.Categorias.First(cat => cat.Id == categoriaTemporaria.Id);
+                categoria.Nome = categoriaTemporaria.Nome;
+                database.SaveChanges();
+
+                return RedirectToAction("Categorias", "Gestao");
+            }
+            else{
+                return View("../Gestao/EditarCategoria");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Deletar(int id){
+
+            if(id > 0){
+                var categoria = database.Categorias.First(cat => cat.Id == id);
+                categoria.Status = false;
+                database.SaveChanges();
+
+                return RedirectToAction("Categorias", "Gestao");
+            }
+            else{
+                return Content(id.ToString());
             }
         }
     }

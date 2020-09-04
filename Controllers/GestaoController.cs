@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using projetoMarket.Data;
+using projetoMarket.DTO;
 
 namespace projetoMarket.Controllers
 {
@@ -18,12 +19,23 @@ namespace projetoMarket.Controllers
 
         public IActionResult Categorias(){
 
-            var categorias = database.Categorias.ToList();
+            var categorias = database.Categorias.Where(cat => cat.Status == true).ToList();
             return View(categorias);
         }
 
         public IActionResult NovaCategoria(){
             return View();
+        }
+
+        public IActionResult EditarCategoria(int id){
+
+            var categoria = database.Categorias.First(cat => cat.Id == id);
+
+            CategoriaDTO categoriaView = new CategoriaDTO();
+            categoriaView.Id = categoria.Id;
+            categoriaView.Nome = categoria.Nome;
+
+            return View(categoriaView);
         }
 
         public IActionResult Fornecedores(){
