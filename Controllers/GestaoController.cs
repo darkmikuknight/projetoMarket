@@ -19,7 +19,6 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Categorias(){
-
             var categorias = database.Categorias.Where(cat => cat.Status == true).ToList();
             return View(categorias);
         }
@@ -40,7 +39,6 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Fornecedores(){
-
             var fornecedores = database.Fornecedores.Where(forn => forn.Status == true).ToList();
             return View(fornecedores);
         }
@@ -62,7 +60,6 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Produtos(){
-
             var produtos = database.Produtos.Include(p => p.Categoria).Include(p => p.Fornecedor).Where(p => p.Status == true).ToList();
             return View(produtos);
         }
@@ -91,5 +88,29 @@ namespace projetoMarket.Controllers
 
             return View(produtoView);
         }
+
+        public IActionResult Promocoes(){
+            var promocoes = database.Promocoes.Include(p => p.Produto).Where(i => i.Status == true).ToList();
+            return View(promocoes);
+        }
+
+        public IActionResult NovaPromocao(){
+            ViewBag.Produtos = database.Produtos.ToList();
+            return View();
+        }
+
+        public IActionResult EditarPromocao(int id){
+
+            var promocao = database.Promocoes.Include(p => p.Produto).First(p => p.Id == id);
+            PromocaoDTO promocaoView = new PromocaoDTO();
+            promocaoView.Id = promocao.Id;
+            promocaoView.Nome = promocao.Nome;
+            promocaoView.ProdutoID = promocao.Produto.Id;
+            promocaoView.Porcentagem = promocao.Porcentagem;
+            ViewBag.Produtos = database.Produtos.ToList();
+            
+            return View(promocaoView);
+        }
+
     }
 }
