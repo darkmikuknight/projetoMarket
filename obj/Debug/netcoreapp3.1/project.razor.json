@@ -14407,6 +14407,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\Categorias.cshtml",
+      "TargetPath": "Views\\Gestao\\Categorias.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -14434,6 +14439,11 @@
     {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\NovaCategoria.cshtml",
+      "TargetPath": "Views\\Gestao\\NovaCategoria.cshtml",
       "FileKind": "mvc"
     },
     {
