@@ -39,11 +39,25 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Fornecedores(){
-            return View();
+
+            var fornecedores = database.Fornecedores.Where(forn => forn.Status == true).ToList();
+            return View(fornecedores);
         }
 
         public IActionResult NovoFornecedor(){
             return View();
+        }
+
+        public IActionResult EditarFornecedor(int id){
+
+            var fornecedor = database.Fornecedores.First(forn => forn.Id == id);
+            FornecedorDTO fornecdorView = new FornecedorDTO();
+            fornecdorView.Nome = fornecedor.Nome;
+            fornecdorView.Id = fornecedor.Id;
+            fornecdorView.Email = fornecedor.Email;
+            fornecdorView.Telefone = fornecedor.Telefone;
+            
+            return View(fornecdorView);
         }
 
         public IActionResult Produtos(){
