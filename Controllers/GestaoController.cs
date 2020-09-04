@@ -1,10 +1,17 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using projetoMarket.Data;
 
 namespace projetoMarket.Controllers
 {
     public class GestaoController : Controller
     {
+        private readonly ApplicationDbContext database;
+        
+        public GestaoController(ApplicationDbContext database){
+            this.database = database;
+        }
         public IActionResult Index(){
             return View();
         }
@@ -22,6 +29,17 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult NovoFornecedor(){
+            return View();
+        }
+
+         public IActionResult Produtos(){
+            return View();
+        }
+
+        public IActionResult NovoProduto(){
+            ViewBag.Categorias = database.Categorias.ToList();
+            ViewBag.Fornecedores = database.Fornecedores.ToList();
+
             return View();
         }
     }

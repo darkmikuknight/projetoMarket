@@ -14432,6 +14432,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\NovoProduto.cshtml",
+      "TargetPath": "Views\\Gestao\\NovoProduto.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Shared\\_LayoutAdmin.cshtml",
       "TargetPath": "Views\\Shared\\_LayoutAdmin.cshtml",
       "FileKind": "mvc"
@@ -14444,6 +14449,11 @@
     {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\Produtos.cshtml",
+      "TargetPath": "Views\\Gestao\\Produtos.cshtml",
       "FileKind": "mvc"
     },
     {
