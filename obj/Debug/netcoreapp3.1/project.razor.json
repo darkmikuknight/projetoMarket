@@ -14397,6 +14397,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\NovoFornecedor.cshtml",
+      "TargetPath": "Views\\Gestao\\NovoFornecedor.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\Fornecedores.cshtml",
+      "TargetPath": "Views\\Gestao\\Fornecedores.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Shared\\_LoginPartial.cshtml",
       "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
       "FileKind": "mvc"

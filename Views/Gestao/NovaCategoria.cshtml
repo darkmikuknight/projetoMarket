@@ -6,10 +6,11 @@
 <h3>Nova Categoria</h3>
 <hr/>
 <form class="form-horizontal" asp-controller="Categorias" asp-action="Salvar" method="POST">
+    <input type="hidden" asp-for="Id" value="0">
     <label asp-for="Nome">Nome</label>
-    <input type="text" asp-action="Nome" class="form-control" placeholder="Nome da Categoria">
+    <input type="text" asp-for="Nome" class="form-control" placeholder="Nome da Categoria">
     <span asp-validation-for="Nome"></span>
-    <input type="hidden" asp-action="Id" value="0">
+
     <br/>
     <button class="btn btn-success">Cadastrar</button>
 </form>
