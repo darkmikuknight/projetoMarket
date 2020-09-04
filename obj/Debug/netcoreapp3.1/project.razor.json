@@ -14442,6 +14442,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Gestao\\EditarProduto.cshtml",
+      "TargetPath": "Views\\Gestao\\EditarProduto.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Guilherme RP\\Documents\\GitHub\\projetoMarket\\Views\\Shared\\_LayoutAdmin.cshtml",
       "TargetPath": "Views\\Shared\\_LayoutAdmin.cshtml",
       "FileKind": "mvc"

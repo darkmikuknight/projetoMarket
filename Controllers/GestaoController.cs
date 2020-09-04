@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using projetoMarket.Data;
 using projetoMarket.DTO;
 
@@ -61,7 +62,9 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Produtos(){
-            return View();
+
+            var produtos = database.Produtos.Include(p => p.Categoria).Include(p => p.Fornecedor).Where(p => p.Status == true).ToList();
+            return View(produtos);
         }
 
         public IActionResult NovoProduto(){
@@ -69,6 +72,24 @@ namespace projetoMarket.Controllers
             ViewBag.Fornecedores = database.Fornecedores.ToList();
 
             return View();
+        }
+
+        public IActionResult EditarProduto(int id){
+
+            var produto = database.Produtos.Include(p => p.Categoria).Include(p => p.Fornecedor).First(p => p.Id == id);
+            ProdutoDTO produtoView = new ProdutoDTO();
+            produtoView.Id = produto.Id;
+            produtoView.Nome = produto.Nome;
+            produtoView.PrecoDeCusto = produto.PrecoDeCusto;
+            produtoView.PrecoDeVenda = produto.PrecoDeVenda;
+            produtoView.Medicao = produto.Medicao;
+            produtoView.CategoriaID = produto.Categoria.Id;
+            produtoView.FornecedorID = produto.Fornecedor.Id;
+
+            ViewBag.Categorias = database.Categorias.ToList();
+            ViewBag.Fornecedores = database.Fornecedores.ToList();
+
+            return View(produtoView);
         }
     }
 }

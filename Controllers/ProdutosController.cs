@@ -41,5 +41,39 @@ namespace projetoMarket.Controllers
                 return View("../Gestao/NovoProduto");
             }
         }
+
+        [HttpPost]
+        public IActionResult Atualizar(ProdutoDTO produtoTemp){
+
+            if(ModelState.IsValid){
+
+                var produto = database.Produtos.First(p => p.Id == produtoTemp.Id);
+                produto.Nome = produtoTemp.Nome;
+                produto.Categoria = database.Categorias.First(cat => cat.Id == produtoTemp.CategoriaID);
+                produto.Fornecedor = database.Fornecedores.First(forn => forn.Id == produtoTemp.FornecedorID);
+                produto.PrecoDeCusto = produtoTemp.PrecoDeCusto;
+                produto.PrecoDeVenda = produtoTemp.PrecoDeVenda;
+                produto.Medicao = produtoTemp.Medicao;
+
+                database.SaveChanges();
+                return RedirectToAction("Produtos", "Gestao");
+            }
+            else{
+                // ViewBag.Categorias = database.Categorias.ToList();
+                // ViewBag.Fornecedores = database.Fornecedores.ToList();
+                // return View("../Gestao/NovoProduto");
+                return View("../Gestao/EditarProduto");
+            }
+        }
+
+        public IActionResult Deletar(int id){
+            if(id > 0){
+                var produto = database.Produtos.First(p => p.Id == id);
+                produto.Status = false;
+                database.SaveChanges();
+            }
+
+            return RedirectToAction("Produtos", "Gestao");
+        }
     }
 }
