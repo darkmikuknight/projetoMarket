@@ -17,7 +17,9 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Categorias(){
-            return View();
+
+            var categorias = database.Categorias.ToList();
+            return View(categorias);
         }
 
         public IActionResult NovaCategoria(){
@@ -32,7 +34,7 @@ namespace projetoMarket.Controllers
             return View();
         }
 
-         public IActionResult Produtos(){
+        public IActionResult Produtos(){
             return View();
         }
 

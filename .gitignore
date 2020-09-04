@@ -1,6 +1,7 @@
 # Build and Release Folders
 /bin
 /obj
+/obj/Debug/
 # Other files and folders
 
 
