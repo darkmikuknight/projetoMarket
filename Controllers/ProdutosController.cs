@@ -4,6 +4,7 @@ using projetoMarket.DTO;
 using projetoMarket.Data;
 using projetoMarket.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace projetoMarket.Controllers
 {
@@ -74,6 +75,27 @@ namespace projetoMarket.Controllers
             }
 
             return RedirectToAction("Produtos", "Gestao");
+        }
+
+        [HttpPost]
+        public IActionResult Produto(int id){
+
+            if(id > 0){
+                var produto = database.Produtos.Where(p => p.Status == true).Include(p => p.Categoria).Include(p => p.Fornecedor).First(p => p.Id == id);
+                if(produto != null){
+                    Response.StatusCode = 200;
+                    return Json(produto);
+                }
+                else{
+                    Response.StatusCode = 404;
+                    return Json(null);
+                }
+            }
+            else{
+                Response.StatusCode = 404;
+                return Json(null);
+            }
+        
         }
     }
 }
