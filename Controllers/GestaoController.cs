@@ -113,8 +113,8 @@ namespace projetoMarket.Controllers
         }
 
         public IActionResult Estoque(){
-
-            return View();
+            var listaEstoques = database.Estoques.Include(e => e.Produto).ToList();
+            return View(listaEstoques);
         }
 
         public IActionResult NovoEstoque(){

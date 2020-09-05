@@ -5,6 +5,7 @@ using projetoMarket.Data;
 using projetoMarket.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace projetoMarket.Controllers
 {
@@ -25,8 +26,8 @@ namespace projetoMarket.Controllers
                 produto.Nome = produtoTemp.Nome;
                 produto.Categoria = database.Categorias.First(cat => cat.Id == produtoTemp.CategoriaID);
                 produto.Fornecedor = database.Fornecedores.First(forn => forn.Id == produtoTemp.FornecedorID);
-                produto.PrecoDeCusto = produtoTemp.PrecoDeCusto;
-                produto.PrecoDeVenda = produtoTemp.PrecoDeVenda;
+                produto.PrecoDeCusto = float.Parse(produtoTemp.PrecoDeCustoString, CultureInfo.InvariantCulture.NumberFormat);
+                produto.PrecoDeVenda = float.Parse(produtoTemp.PrecoDeVendaString, CultureInfo.InvariantCulture.NumberFormat);
                 produto.Medicao = produtoTemp.Medicao;
                 produto.Status = true;
 
@@ -52,8 +53,8 @@ namespace projetoMarket.Controllers
                 produto.Nome = produtoTemp.Nome;
                 produto.Categoria = database.Categorias.First(cat => cat.Id == produtoTemp.CategoriaID);
                 produto.Fornecedor = database.Fornecedores.First(forn => forn.Id == produtoTemp.FornecedorID);
-                produto.PrecoDeCusto = produtoTemp.PrecoDeCusto;
-                produto.PrecoDeVenda = produtoTemp.PrecoDeVenda;
+                produto.PrecoDeCusto = float.Parse(produtoTemp.PrecoDeCustoString, CultureInfo.InvariantCulture.NumberFormat);
+                produto.PrecoDeVenda = float.Parse(produtoTemp.PrecoDeVendaString, CultureInfo.InvariantCulture.NumberFormat);
                 produto.Medicao = produtoTemp.Medicao;
 
                 database.SaveChanges();

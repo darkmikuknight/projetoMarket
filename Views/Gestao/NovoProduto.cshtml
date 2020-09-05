@@ -20,14 +20,14 @@
     <select class="form-control" asp-for="FornecedorID" asp-items='@(new SelectList(@ViewBag.Fornecedores, "Id", "Nome"))'></select>
 
     <br/>
-    <label asp-for="PrecoDeCusto">Preco de Custo</label>
-    <input type="number" step="any" asp-for="PrecoDeCusto" class="form-control" placeholder="2.25">
-    <span asp-validation-for="PrecoDeCusto"></span>
+    <label asp-for="PrecoDeCustoString">Preco de Custo</label>
+    <input type="text" step="any" asp-for="PrecoDeCustoString" class="form-control" placeholder="2.25">
+    <span asp-validation-for="PrecoDeCustoString"></span>
 
     <br/>
-    <label asp-for="PrecoDeVenda">Preco de Venda</label>
-    <input type="number" step="any" asp-for="PrecoDeVenda" class="form-control" placeholder="3.25">
-    <span asp-validation-for="PrecoDeVenda"></span>
+    <label asp-for="PrecoDeVendaString">Preco de Venda</label>
+    <input type="text" step="any" asp-for="PrecoDeVendaString" class="form-control" placeholder="3.25">
+    <span asp-validation-for="PrecoDeVendaString"></span>
 
     <br/>
     <label asp-for="Medicao">Medição</label>

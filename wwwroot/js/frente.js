@@ -41,6 +41,7 @@ function adicionarTabela(p, quantidade){
         p.medicao = "U"
     else
         p.medicao = "U"
+
     $("#compras").append(`<tr>
             <td>${p.id}</td>
             <td>${p.nome}</td>
