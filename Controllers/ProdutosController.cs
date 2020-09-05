@@ -82,10 +82,40 @@ namespace projetoMarket.Controllers
         public IActionResult Produto(int id){
 
             if(id > 0){
-                var produto = database.Produtos.Where(p => p.Status == true).Include(p => p.Categoria).Include(p => p.Fornecedor).First(p => p.Id == id);
+
+                var produto = database.Produtos.Include(p => p.Categoria).Include(p => p.Fornecedor).Where(p => p.Status == true).First(p => p.Id == id);
+
                 if(produto != null){
-                    Response.StatusCode = 200;
-                    return Json(produto);
+
+                    Estoque estoque;
+                    
+                    try{
+                        estoque = database.Estoques.First(e => e.Produto.Id == produto.Id);
+                    }catch(Exception e){
+                        estoque = null;
+                    }
+
+                    if(estoque != null){
+
+                        Promocao promocao;
+
+                        try{
+                            promocao = database.Promocoes.Include(p => p.Produto).First(prom => prom.Produto.Id == produto.Id && prom.Status == true);
+                        }catch(Exception e){
+                            promocao = null;
+                        }
+
+                        if(promocao != null){
+                            produto.PrecoDeVenda -= (produto.PrecoDeVenda * promocao.Porcentagem/100);
+                        }
+
+                        Response.StatusCode = 200;
+                        return Json(produto);
+                    }
+                    else{
+                        Response.StatusCode = 404;
+                        return Json(null);
+                    }
                 }
                 else{
                     Response.StatusCode = 404;

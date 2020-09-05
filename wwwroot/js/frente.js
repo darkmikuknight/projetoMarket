@@ -5,8 +5,17 @@
 const enderecoProduto = "https://localhost:5001/Produtos/Produto/"
 let produto
 let compra = []
+let __totalVenda__ = 0.0
+
+//Inicialização//
+atualizarTotal()
+$("#posVenda").hide()
 
 //Funções//
+function atualizarTotal(){
+    $("#totalVenda").html(__totalVenda__)
+}
+
 function preencherFormulario(dadosProduto){
 
     $("#nome").val(dadosProduto.nome)
@@ -31,15 +40,20 @@ function adicionarTabela(p, quantidade){
     //Adicionando os produtos no carrinho de compras//
     const produtoTemp = {}
     Object.assign(produtoTemp, produto)
-    compra.push(produtoTemp)
+    var venda = {produto: p, quantidade: quantidade, subtotal: p.precoDeVenda*quantidade}
+
+    __totalVenda__ += venda.subtotal
+    atualizarTotal()
+
+    compra.push(venda)
+
+    p.medicao = "U"
 
     if(p.medicao == 0)
         p.medicao = "l"
     else if(p.medicao == 1)
         p.medicao = "K"
     else if(p.medicao == 2)
-        p.medicao = "U"
-    else
         p.medicao = "U"
 
     $("#compras").append(`<tr>
@@ -56,17 +70,18 @@ function adicionarTabela(p, quantidade){
 $("#formProduto").on("submit", function(event){
 
     event.preventDefault()
-    const produtoParaTabela = produto
+    const produtoParaTabela = {}
+    Object.assign(produtoParaTabela, produto)
     const quantidadeProduto = $("#quantidade").val()
-    adicionarTabela(produtoParaTabela, quantidadeProduto)
 
+    adicionarTabela(produtoParaTabela, quantidadeProduto)
     produto = null
-    zerarFormulario()   
+    zerarFormulario()
 })
 
 
 
-//Requeisição Ajax
+//Requeisição Ajax//
 $("#pesquisar").click(function(){
 
     const codProduto = $("#codigoProduto").val()
@@ -78,4 +93,47 @@ $("#pesquisar").click(function(){
     }).fail(function(){
         alert("Produto inválido")
     })
+})
+
+//Finalização de Venda//
+$("#finalizarVendaBtn").click(function(){
+    if(__totalVenda__ <= 0){
+        alert("Compra inválida! Nenhum produto adicionado.")
+        return
+    }
+    
+    const valorPago = $("#valorPago").val()
+    
+    if(!isNaN(valorPago)){
+        if(valorPago >= __totalVenda__){
+            const valorTroco = valorPago - __totalVenda__
+            $("#valorTroco").val(valorTroco)
+            $("#posVenda").show()
+            $("#preVenda").hide()
+            $("#valorPago").prop("disabled", true)
+        }
+        else{
+            alert("Valor pago não pode ser menor que o valor total da compra!")
+            return
+        }
+
+    }
+    else{
+        alert("Valor pago inválido!")
+        return
+    }
+})
+
+function restaurarModal(){
+    $("#valorTroco").val("")
+    $("#valorPago").val("")
+    $("#posVenda").hide()
+    $("#preVenda").show()
+    $("#valorPago").prop("disabled", false)
+    __totalVenda__ = 0.0
+    atualizarTotal()
+}
+
+$("#fecharVenda").click(function(){
+    restaurarModal()
 })
