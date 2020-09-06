@@ -126,7 +126,33 @@ namespace projetoMarket.Controllers
                 Response.StatusCode = 404;
                 return Json(null);
             }
-        
+        }
+
+        [HttpPost]
+        public IActionResult GerarVenda([FromBody] VendaDTO dados){
+            //Gerando Venda//
+            Venda venda = new Venda();
+            venda.Total = dados.total;
+            venda.Troco = dados.troco;
+            venda.ValorPago = dados.troco <= 0.01f ? dados.total : dados.troco + dados.total;
+            venda.Data = DateTime.Now;
+
+            database.Vendas.Add(venda);
+            database.SaveChanges();
+
+            return Ok(new { msg = "Venda processada com sucesso!"});
+        }
+
+        public class SaidaDTO{
+            public int produto {get; set;}
+            public int quantidade {get; set;}
+            public float subtotal {get; set;}
+        }
+
+        public class VendaDTO{
+            public float total {get; set;}
+            public float troco {get; set;}
+            public SaidaDTO[] produtos {get; set;}
         }
     }
 }

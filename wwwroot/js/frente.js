@@ -3,6 +3,7 @@
  */
 
 const enderecoProduto = "https://localhost:5001/Produtos/Produto/"
+const enderecoGerarVenda = "https://localhost:5001/Produtos/GerarVenda"
 let produto
 let compra = []
 let __totalVenda__ = 0.0
@@ -40,7 +41,7 @@ function adicionarTabela(p, quantidade){
     //Adicionando os produtos no carrinho de compras//
     const produtoTemp = {}
     Object.assign(produtoTemp, produto)
-    var venda = {produto: p, quantidade: quantidade, subtotal: p.precoDeVenda*quantidade}
+    const venda = {produto: p, quantidade: parseInt(quantidade), subtotal: p.precoDeVenda*quantidade}
 
     __totalVenda__ += venda.subtotal
     atualizarTotal()
@@ -111,6 +112,32 @@ $("#finalizarVendaBtn").click(function(){
             $("#posVenda").show()
             $("#preVenda").hide()
             $("#valorPago").prop("disabled", true)
+
+            //Processar array de compra//
+            compra.forEach(item =>{
+                item.produto = item.produto.id
+            })
+
+            //Preparar um novo objeto para enviar para o back-end//
+            const venda = {
+                total: __totalVenda__, 
+                troco: valorTroco, 
+                produtos: compra
+            }
+            
+            //Enviar os dados para o back-end//
+            $.ajax({ //faz requisição para qualquer verbo HTTP
+                type: "POST",
+                url: enderecoGerarVenda,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(venda),
+                success: function(data){
+                    console.log("Dados enviados com sucesso!")
+                    console.log(data)
+                }
+            }) 
+
         }
         else{
             alert("Valor pago não pode ser menor que o valor total da compra!")
