@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projetoMarket.Data;
@@ -7,6 +8,7 @@ using projetoMarket.DTO;
 
 namespace projetoMarket.Controllers
 {
+    [Authorize]
     public class GestaoController : Controller
     {
         private readonly ApplicationDbContext database;
@@ -124,6 +126,16 @@ namespace projetoMarket.Controllers
 
         public IActionResult EditarEstoque(){
             return Content("l");
+        }
+
+        public IActionResult Vendas(){
+            var listaVendas = database.Vendas.ToList();
+            return View(listaVendas);
+        }
+
+        [HttpPost]
+        public IActionResult RelatorioVendas(){
+            return Ok(database.Vendas.ToList());
         }
     }
 }

@@ -60,7 +60,7 @@
                 </div>
                 <div class="mr-5">Vendas</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" asp-action="Vendas">
                 <span class="float-left">Ver todas</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
@@ -69,3 +69,44 @@
             </div>
           </div>
         </div>
+        <hr>
+        <h2 style="text-align: center;">Relatório de Vendas</h2>
+        <hr>
+
+        <canvas class="line-chart"></canvas>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <script>
+
+          const enderecoRelatorioVendas = "https://localhost:5001/Gestao/RelatorioVendas"
+          let labelsX = [] //Datas das vendas
+          let dadosY = [] //Dados
+
+          $.post(enderecoRelatorioVendas, function(dados, status){
+            for(let i = 0; i < dados.length; i++){
+              labelsX.push(dados[i].data)
+              dadosY.push(dados[i].total)
+            }
+          })
+
+          console.log("lavles=" + typeof labelsX + '//' + labelsX.length);
+          console.log("dados=" + dadosY + '//' + dadosY.length);
+          const canvas = document.getElementsByClassName("line-chart")
+
+          if(labelsX != null && dadosY != null){
+          //Chart JS//
+            const grafico = new Chart(canvas, {
+              type: "line",
+              data:{
+                labels: labelsX,
+                datasets: [{
+                  label: "Total de vendas em R$",
+                  data: dadosY,
+                  borderWidth: 12,
+                  borderColor: "#2585c4"
+                }]
+              }
+            })
+          }
+
+        </script>

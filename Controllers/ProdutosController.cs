@@ -6,6 +6,7 @@ using projetoMarket.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace projetoMarket.Controllers
 {
@@ -138,6 +139,23 @@ namespace projetoMarket.Controllers
             venda.Data = DateTime.Now;
 
             database.Vendas.Add(venda);
+            database.SaveChanges();
+
+            //Registrar as saídas//
+            List<Saida> saidas = new List<Saida>();
+
+            foreach(var saida in dados.produtos){
+                Saida s = new Saida();
+                s.Quantidade = saida.quantidade;
+                s.ValorDeVenda = saida.subtotal;
+                s.Venda = venda;
+                s.Produto = database.Produtos.First(p => p.Id == saida.produto);
+                s.Data = DateTime.Now;
+                saidas.Add(s);
+            }
+
+            //Salvar saídas no banco//
+            database.AddRange(saidas);
             database.SaveChanges();
 
             return Ok(new { msg = "Venda processada com sucesso!"});
